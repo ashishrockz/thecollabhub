@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Building2, Users, Briefcase, TrendingUp, Bell, Menu, X, Plus, Mail, /* Phone, */ MapPin, Star, ArrowRight, CheckCircle, Clock, Target, Send, Paperclip, ChevronLeft, Calendar, Award, Globe, ExternalLink, AlertCircle, Check } from 'lucide-react';
+import { Search, Building2, Users, Briefcase, TrendingUp,/* Bell*/ Menu, X, /*Plus*/ Mail, /* Phone, */ MapPin, Star, ArrowRight, CheckCircle, Clock,/* Target*/ Send, Paperclip, ChevronLeft, Calendar, Award, Globe, ExternalLink, AlertCircle, Check } from 'lucide-react';
 
 // Types
 export type Company = {
@@ -242,32 +242,32 @@ const requirements: Requirement[] = [
   }
 ];
 
-const notifications: Notification[] = [
-  {
-    id: 1,
-    type: "response",
-    title: "New response to your requirement",
-    message: "InnovateLabs responded to 'Senior Full-Stack Developer'",
-    time: "5 minutes ago",
-    read: false
-  },
-  {
-    id: 2,
-    type: "message",
-    title: "New message from TechVentures Inc",
-    message: "We'd like to discuss potential collaboration",
-    time: "1 hour ago",
-    read: false
-  },
-  {
-    id: 3,
-    type: "match",
-    title: "Perfect match found!",
-    message: "Your profile matches 'Blockchain Security Audit' requirement",
-    time: "2 hours ago",
-    read: true
-  }
-];
+// const notifications: Notification[] = [
+//   {
+//     id: 1,
+//     type: "response",
+//     title: "New response to your requirement",
+//     message: "InnovateLabs responded to 'Senior Full-Stack Developer'",
+//     time: "5 minutes ago",
+//     read: false
+//   },
+//   {
+//     id: 2,
+//     type: "message",
+//     title: "New message from TechVentures Inc",
+//     message: "We'd like to discuss potential collaboration",
+//     time: "1 hour ago",
+//     read: false
+//   },
+//   {
+//     id: 3,
+//     type: "match",
+//     title: "Perfect match found!",
+//     message: "Your profile matches 'Blockchain Security Audit' requirement",
+//     time: "2 hours ago",
+//     read: true
+//   }
+// ];
 
 const stats: Stat[] = [
   { label: "Active Companies", value: "2,847", icon: Building2, change: "+12%" },
@@ -283,10 +283,10 @@ export default function CollaborationPlatform() {
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [filterCategory, setFilterCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [showNotifications, setShowNotifications] = useState(false);
+  // const [showNotifications, setShowNotifications] = useState(false);
   const [showPostRequirement, setShowPostRequirement] = useState(false);
   const [selectedChat, setSelectedChat] = useState<any | null>(null);
-  const [notificationList, setNotificationList] = useState(notifications);
+  // const [notificationList, setNotificationList] = useState(notifications);
   
   const [messages, setMessages] = useState<Record<any, Message[]>>({
     1: [
@@ -311,7 +311,7 @@ export default function CollaborationPlatform() {
     skills: ''
   });
 
-  const unreadCount = notificationList.filter(n => !n.read).length;
+  // const unreadCount = notificationList.filter(n => !n.read).length;
 
   const filteredRequirements = requirements.filter(req => {
     const matchesCategory = filterCategory === 'all' || req.category === filterCategory;
@@ -359,15 +359,15 @@ export default function CollaborationPlatform() {
     });
   };
 
-  const markNotificationAsRead = (id:any) => {
-    setNotificationList(notificationList.map(n => 
-      n.id === id ? { ...n, read: true } : n
-    ));
-  };
+  // const markNotificationAsRead = (id:any) => {
+  //   setNotificationList(notificationList.map(n => 
+  //     n.id === id ? { ...n, read: true } : n
+  //   ));
+  // };
 
-  const markAllAsRead = () => {
-    setNotificationList(notificationList.map(n => ({ ...n, read: true })));
-  };
+  // const markAllAsRead = () => {
+  //   setNotificationList(notificationList.map(n => ({ ...n, read: true })));
+  // };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">

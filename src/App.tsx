@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Building2, Users, Briefcase, TrendingUp, Bell, Menu, X, Plus, Mail, Phone, MapPin, Star, ArrowRight, CheckCircle, Clock, Target, Send, Paperclip, ChevronLeft, Calendar, Award, Globe, ExternalLink, AlertCircle, Check } from 'lucide-react';
+import { Search, Building2, Users, Briefcase, TrendingUp, Bell, Menu, X, Plus, Mail, /* Phone, */ MapPin, Star, ArrowRight, CheckCircle, Clock, Target, Send, Paperclip, ChevronLeft, Calendar, Award, Globe, ExternalLink, AlertCircle, Check } from 'lucide-react';
 
 // Types
 export type Company = {
@@ -375,18 +375,13 @@ export default function CollaborationPlatform() {
       <header className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-lg sm:text-xl font-bold text-slate-900">CollabHub</h1>
-                <p className="text-xs text-slate-500 hidden sm:block">B2B Collaboration Platform</p>
-              </div>
+            {/* Logo and Title */}
+            <div className="flex items-center space-x-2">
+              <Building2 className="w-8 h-8 text-blue-600" />
+              <span className="font-bold text-2xl sm:text-3xl text-slate-900">CollabHub</span>
             </div>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-1">
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex space-x-6">
               {['dashboard', 'companies', 'requirements', 'messages'].map((tab) => (
                 <button
                   key={tab}
@@ -402,93 +397,15 @@ export default function CollaborationPlatform() {
               ))}
             </nav>
 
-            <div className="flex items-center space-x-2 sm:space-x-3">
-              <div className="relative">
-                <button 
-                  onClick={() => setShowNotifications(!showNotifications)}
-                  className="p-2 hover:bg-slate-100 rounded-lg transition-colors relative"
-                >
-                  <Bell className="w-5 h-5 text-slate-600" />
-                  {unreadCount > 0 && (
-                    <span className="absolute top-1 right-1 w-4 h-4 sm:w-5 sm:h-5 bg-red-500 rounded-full text-white text-xs flex items-center justify-center font-bold">
-                      {unreadCount}
-                    </span>
-                  )}
-                </button>
-                
-                {/* Notifications Dropdown */}
-                {showNotifications && (
-                  <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-xl shadow-xl border border-slate-200 max-h-96 overflow-y-auto">
-                    <div className="p-4 border-b border-slate-200 flex items-center justify-between">
-                      <h3 className="font-bold text-slate-900">Notifications</h3>
-                      {unreadCount > 0 && (
-                        <button 
-                          onClick={markAllAsRead}
-                          className="text-sm text-blue-600 hover:text-blue-700 font-medium"
-                        >
-                          Mark all read
-                        </button>
-                      )}
-                    </div>
-                    <div className="divide-y divide-slate-100">
-                      {notificationList.map((notif) => (
-                        <div
-                          key={notif.id}
-                          onClick={() => markNotificationAsRead(notif.id)}
-                          className={`p-4 hover:bg-slate-50 cursor-pointer transition-colors ${
-                            !notif.read ? 'bg-blue-50' : ''
-                          }`}
-                        >
-                          <div className="flex items-start space-x-3">
-                            <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                              notif.type === 'response' ? 'bg-blue-100' :
-                              notif.type === 'message' ? 'bg-purple-100' :
-                              notif.type === 'match' ? 'bg-green-100' :
-                              'bg-slate-100'
-                            }`}>
-                              {notif.type === 'response' && <Briefcase className="w-5 h-5 text-blue-600" />}
-                              {notif.type === 'message' && <Mail className="w-5 h-5 text-purple-600" />}
-                              {notif.type === 'match' && <Target className="w-5 h-5 text-green-600" />}
-                              {notif.type === 'system' && <Bell className="w-5 h-5 text-slate-600" />}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="font-semibold text-sm text-slate-900">{notif.title}</p>
-                              <p className="text-sm text-slate-600 truncate">{notif.message}</p>
-                              <p className="text-xs text-slate-500 mt-1">{notif.time}</p>
-                            </div>
-                            {!notif.read && (
-                              <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-              
-              <button 
-                onClick={() => setShowPostRequirement(true)}
-                className="hidden sm:flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-lg hover:shadow-lg transition-all text-sm sm:text-base"
-              >
-                <Plus className="w-4 h-4" />
-                <span className="hidden md:inline">Post Requirement</span>
-                <span className="md:hidden">Post</span>
-              </button>
-              <button
-                className="md:hidden p-2"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              >
-                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
-            </div>
+            {/* Mobile Nav Toggle */}
+            <button className="md:hidden p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
-        </div>
 
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-slate-200 bg-white">
-            <nav className="flex flex-col p-4 space-y-2">
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <nav className="md:hidden flex flex-col space-y-2 mt-2">
               {['dashboard', 'companies', 'requirements', 'messages'].map((tab) => (
                 <button
                   key={tab}
@@ -515,8 +432,8 @@ export default function CollaborationPlatform() {
                 Post Requirement
               </button>
             </nav>
-          </div>
-        )}
+          )}
+        </div>
       </header>
 
       {/* Main Content */}
@@ -525,31 +442,21 @@ export default function CollaborationPlatform() {
         {activeTab === 'dashboard' && (
           <div className="space-y-6 sm:space-y-8">
             {/* Hero Section */}
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-6 sm:p-8 text-white shadow-xl">
-              <div className="max-w-3xl">
-                <h2 className="text-2xl sm:text-3xl font-bold mb-2">Welcome to CollabHub</h2>
-                <p className="text-blue-100 mb-4 sm:mb-6 text-sm sm:text-base">
+            <div className="rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-700 p-6 sm:p-10 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between">
+              <div>
+                <h2 className="text-white text-2xl sm:text-3xl font-bold mb-2">Welcome to CollabHub</h2>
+                <p className="text-blue-100 mb-4 text-base sm:text-lg">
                   Connect with companies, share requirements, and build meaningful partnerships
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <button 
-                    onClick={() => setActiveTab('companies')}
-                    className="px-6 py-3 bg-white text-blue-700 rounded-lg font-semibold hover:shadow-lg transition-all text-center"
-                  >
-                    Explore Companies
-                  </button>
-                  <button 
-                    onClick={() => setActiveTab('requirements')}
-                    className="px-6 py-3 bg-blue-500 bg-opacity-30 text-white rounded-lg font-semibold hover:bg-opacity-40 transition-all text-center"
-                  >
-                    View Requirements
-                  </button>
+                  <button className="bg-white text-blue-700 font-semibold px-4 py-2 rounded-lg shadow hover:bg-blue-50 transition">Explore Companies</button>
+                  <button className="bg-blue-100 text-blue-700 font-semibold px-4 py-2 rounded-lg shadow hover:bg-blue-200 transition">View Requirements</button>
                 </div>
               </div>
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {stats.map((stat, idx) => (
                 <div key={idx} className="bg-white rounded-xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all">
                   <div className="flex items-center justify-between mb-3 sm:mb-4">
